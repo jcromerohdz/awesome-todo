@@ -2,14 +2,7 @@
   <q-page
     padding
   >
-    <ul>
-      <task 
-        v-for="(task, index) in tasks"
-        :task="task"
-        :key="index"
-      ></task>
-    </ul>
-  
+    <p>Todo Page</p>
   </q-page>
 </template>
 

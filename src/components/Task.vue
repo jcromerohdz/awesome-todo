@@ -5,8 +5,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  props: ['task']
+  props: ['task'],
 };
 </script>
 

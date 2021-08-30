@@ -4,7 +4,7 @@
     <form @submit.prevent="submitForm">
       <q-card-section class="q-pt-none">
 
-        <modal-header>Add Task</modal-header>
+        <modal-header>Edit Task</modal-header>
         
         <modal-task-name 
           :name.sync="taskToSubmit.name"
@@ -32,18 +32,15 @@
 import { mapActions } from 'vuex'
 
 export default {
+  props: ['task', 'id'],
   data() {
     return {
       taskToSubmit: {
-        name: '',
-        dueDate: '',
-        dueTime: '',
-        completed: false
       },
     } 
   },
   methods: {
-    ...mapActions('tasks', ['addTask']),
+    ...mapActions('tasks', ['updateTask']),
     submitForm() {
       this.$refs.modalTaskName.$refs.name.validate()
       if (!this.$refs.modalTaskName.$refs.name.hasError) {
@@ -51,8 +48,10 @@ export default {
       }
     },
     submitTask() {
-      console.log('submitTask')
-      this.addTask(this.taskToSubmit)
+      this.updateTask({
+        id: this.id,
+        updates: this.taskToSubmit
+      })
       this.$emit('close')
     }
   },
@@ -62,6 +61,10 @@ export default {
     'modal-due-date': require('components/Tasks/Modals/Shared/ModalDueDate.vue').default,
     'modal-due-time': require('components/Tasks/Modals/Shared/ModalDueTime.vue').default,
     'modal-button': require('components/Tasks/Modals/Shared/ModalButton.vue').default
+  },
+  mounted() {
+    this.taskToSubmit = Object.assign({}, this.task)
+
   }
 };
 </script>

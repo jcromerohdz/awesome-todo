@@ -2,27 +2,21 @@
   <q-page
     class="q-pa-md"
   >
-    <q-list
-      v-if="Object.keys(tasks).length" 
-      separator
-      bordered 
-    >
+    <div class="row q-mb-lg">
+      <search />
+    </div>
+    <no-tasks
+      v-if="!Object.keys(tasksTodo).length"
+    />
 
-      <q-item-label 
-        header
-        class="bg-blue-grey text-white"
-      >
-        Todo
-      </q-item-label>
+    <task-todo 
+      :tasksTodo="tasksTodo"
+    />
 
-      <task
-        v-for="(task, key) in tasks"
-        :key="key"
-        :task="task"
-        :id="key"
-      ></task>
+    <task-completed 
+      :tasksCompleted="tasksCompleted"
+    />
 
-    </q-list>
     <div class="absolute-bottom text-center q-mb-lg">
       <q-btn
         @click="showAddTask = true"
@@ -42,6 +36,7 @@
 </template>
 
 <script>
+import TaskCompleted from 'components/Tasks/TaskCompleted.vue'
 import { mapGetters } from 'vuex'
   export default {
     data() {
@@ -50,7 +45,7 @@ import { mapGetters } from 'vuex'
       }
     },
     computed: {
-      ...mapGetters('tasks', ['tasks'])
+      ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted'])
     },
     methods: {
       clearMessage() {
@@ -59,15 +54,24 @@ import { mapGetters } from 'vuex'
       alertMessage() {
         alert(this.message)
       }
+    },
+    mounted() {
+      this.$root.$on('showAddTask', () => {
+        this.showAddTask = true
+      })
 
     },
     components: {
-      'task': require('components/Tasks/Task.vue').default,
       'add-task': require('components/Tasks/Modals/AddTask.vue').default,
+      'task-todo': require('components/Tasks/TaskTodo.vue').default,
+      'task-completed': require('components/Tasks/TaskCompleted.vue').default,
+      'no-tasks': require('components/Tasks/NoTasks.vue').default,
+      'search': require('components/Tasks/Tools/Search.vue').default,
     },
   }
 </script>
 
-<style>
+<
+        TaskCompletedstyle>
 
 </style>

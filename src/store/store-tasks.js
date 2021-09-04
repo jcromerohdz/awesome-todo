@@ -21,7 +21,8 @@ const state = {
           dueTime: '16:00',
          completed: false
       },
-    }
+    },
+    showAddTaskModal: false
 }
 
 const mutations = {
@@ -61,9 +62,27 @@ const actions = {
 }
 
 const getters = {
-  tasks: (state) => {
-    return state.tasks
-  }
+  tasksTodo: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach((key) => {
+      let task = state.tasks[key]
+      if(!task.completed) {
+        tasks[key] = task
+      }
+    })
+    return tasks
+  },
+  tasksCompleted: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach((key) => {
+      let task = state.tasks[key]
+      if(task.completed) {
+        tasks[key] = task
+      }
+    })
+    return tasks
+  },
+
 
 }
 

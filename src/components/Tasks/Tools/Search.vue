@@ -20,12 +20,25 @@
 </template>
 
 <script>
+import  { mapState } from 'vuex'
+
 export default {
   data() {
     return {
-      searchField: 'Test'
     }
   },
+  computed: {
+    ...mapState('tasks', ['search']),
+    searchField: {
+      get() {
+        return this.search
+      },
+      set(value) {
+        
+
+      }
+    }
+  }
 
 }
 </script>

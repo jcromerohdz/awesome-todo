@@ -22,7 +22,8 @@ const state = {
          completed: false
       },
     },
-    showAddTaskModal: false
+    showAddTaskModal: false,
+    search: 'Hi There'
 }
 
 const mutations = {
